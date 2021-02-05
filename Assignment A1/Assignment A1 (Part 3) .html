@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> Assignment A1 (Part 3): Webpage Assignment </title>
+</head>
+<body style='background-color: cornsilk'>
+	<h1 style='font-family: Times New Roman'> Assignment A1 (Part 3): Webpage Assignment </h1>
+	<p style='font-family: Times New Roman, size: 15px'> 
+		Assignment A1 (Part 2): The programming assignment had the goal of inputting an image into my code, processing it, and outputting it. 
+		I furthered my familiarization with image programming. 
+	</p>
+	<div style='background-color: blanchedalmond; border-radius: 20px 20px 20px 20px; padding: 20px 20px 20px 20px'>
+		<p style='font-size: 25px; margin: 10px 20px 20px 20px'> 
+			The original image I chose of my face was the following:
+		</p>
+		<img style='border-radius: 20px 20px 20px 20px' src="input_image.jpg" width="887" height="640" alt="input_image">
+	</div>
+	<div style='background-color: darksalmon; border-radius: 20px 20px 20px 20px; padding: 20px 20px 20px 20px''>
+		<p style='font-size: 25px; margin: 10px 20px 20px 20px'>
+			I processed the original image to achieve a grayscale image filter. 
+			I was able to do this by nesting two for loops over the rows and columns of the image array.
+			I then retrieved each color channel through indexing into the rows and columns.
+			Lastly I re-assigned the values of the color channels with their average.  
+		</p>
+		<img style='border-radius: 20px 20px 20px 20px' src="output_image01.jpg" width="887" height="640" alt="output_image01">
+	</div>
+	<div style='background-color: blanchedalmond; border-radius: 20px 20px 20px 20px; padding: 20px 20px 20px 20px'>
+		<p style='font-size: 25px; margin: 10px 20px 20px 20px'>
+			I processed the original image to achieve an inverted color image filter. 
+			I was able to do this by nesting two for loops over the rows and columns of the image array.
+			I then retrieved each color channel through indexing into the rows and columns.
+			Lastly I re-assigned the values of the color channels with their differences from 255.  
+		</p>
+		<img style='border-radius: 20px 20px 20px 20px' src="output_image02.png" width="887" height="640" alt="output_image02">
+	</div>
+</body>
+</html>
