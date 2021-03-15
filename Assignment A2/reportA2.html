@@ -1,0 +1,216 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title> CS585 Assignment A2 | Isabella Rocha  </title>
+	<style>
+		body {
+			font-family: 'Times New Roman';
+		}
+		
+		p {
+			margin: 10px 10px 15px 20px;
+			text-align: justify;
+		}
+	
+		h3 {
+			margin: 5px;
+		}
+	
+		h2 {
+			margin: 10px;
+		}
+	
+		h1 {
+			margin: 10px 0px 0px 20px;
+		}
+	
+		div {
+			align:center;
+			margin: 30px;
+		}
+	
+		hr {
+			margin:20px 0px 20px 0px;
+		}
+		
+		a, caption {
+			font-style: italic; 
+		}
+		
+		table {
+			background-color: aliceblue;
+  			margin-left: auto; 
+  			margin-right: auto;
+  			border-radius: 5px;
+		}
+		
+		th, td {
+			text-align: center;
+			padding: 20px;
+			border-radius: 5px;
+			border: 1px solid darkgrey;
+		}
+	</style>
+</head>
+
+<body>
+	<center>
+		<a href="http://www.bu.edu"><img border="0" src="http://www.cs.bu.edu/fac/betke/images/bu-logo.gif" width="119" height="120"></a>
+	</center>
+
+	<h1>Assignment A2</h1>
+	<p> 
+		CS 585: Image and Video Computing
+		<br>
+ 		Isabella Rocha 
+ 		<br>
+ 		Benjamin Reichelt, and Skyler Gauuan
+ 		<br>
+    	February 17, 2021 
+	</p>
+
+	<div>
+		<hr>
+		<h2> Problem Definition </h2>
+			<p>
+				The current problem was hand detection, and to solve this we needed to construct an algorithm that would detect a persons hand as well as their movements.
+				We designed and implemented an algorithm that recognizes hand shapes and gestures. 
+				This result is useful because it allows us to capture a live feed input of a human hand. 
+				This can be useful for future implementations to high level machines that could revolve around fitness tracking, autopilot, and many other areas.
+				We made the assumption that there will be a working camera feed with a human on the other side. This person would have to show their hand to the camera for us to detect the hand movements and shape. 
+				Some anticipated difficulties were setting the restrictions to our image detection, and knowing which algorithm would be best suited for our purposes. 
+			</p>
+		<hr>
+		<h2> Method and Implementation </h2>
+			<p>	
+				We decided on 4 hand gestures to detect: one finger, two finger, three fingers, and four finger. 
+				Once deciding on the gestures to detect, we converted them into binary greyscale images. 
+                We then eroded and dilated the images until there were clearly detected blobs that represented the template for our gestures.
+                We took these templates and ran them against various sizes of live frames from the webcam (pyramid method) in order to check for different sizes of the same gesture.
+                We chose the gesture that had the highest correlation coefficient (also one that was above 78%) to represent as a found match.
+                We then displayed another screen that defaults to black, but flashes various colors depending on which gesture is shown. 
+                (Yellow for 4, Purple for 3, Turquoise for 2, and Orange for 1)
+			</p>
+		<hr>
+		<h2>Experiments</h2>
+			<p>
+				Our experiments consisted of informal testing throughout development (we repeated each gesture around 100 times). Every time we changed a value, we re-ran the code and checked it on the camera live feed.
+                This was especially prominent in creating the window for skin detection and conversion to a binary feed, as our algorithm kept picking up the wall color and lighter colors in the testing room in addition to human skin.
+                There were times that the algorithm wouldn't detect the skin and there would be too many shadows on the hand. We researched some articles and algorithms on skin detection for some guidance and implemented the different methods.  
+                We also tweaked the threshold for a positive match as well, as too high gave false positives, and too low didn't pick up the hand signals.
+			</p>
+			<p>
+				<center>
+				<strong>
+					Confusion Matrix
+				</strong>
+				</center>
+				<center><img src="confusion%20matrix.png" width="638" height="216" alt="Screenshot"></center>
+			</p>
+		<hr>
+		<h2> Results</h2>
+			<p>
+				The source image was the live camera detection of the human hand. The result image was the color output to show that our algorithm was correctly detecting the hand gestures (the number of fingers)
+			</p>
+			<p>
+			<table>
+				<tr>
+					<th> Trial </th>
+					<th> Source Image </th>
+					<th> Result Image </th>
+				</tr>	
+				<tr>
+  					<td> Trial 1: <br> 1 finger detection (orange color output) </td> 
+  						<td> <img src="1.png" width="200" height="154" alt="Screenshot"> </td> 
+  						<td> <img src="orange.png" width="200" height="200" alt="Screenshot"> </td>
+ 				</tr> 
+				<tr>
+  					<td> Trial 2 <br> 2 finger detection (turquoise color output) </td> 
+  						<td> <img src="2.png" width="200" height="147" alt="Screenshot"> </td> 
+  						<td> <img src="aqua.png" width="200" height="200" alt="Screenshot"> </td>
+ 				</tr> 
+ 				<tr>
+  					<td> Trial 3: <br> 3 finger detection (purple color output) </td> 
+  						<td> <img src="3.png" width="200" height="189" alt="Screenshot"> </td> 
+  						<td> <img src="purple.png" width="200" height="200" alt="Screenshot"> </td>
+ 				</tr> 
+ 				<tr>
+  					<td> Trial 4: <br> 4 finger detection (yellow color output) </td> 
+  						<td> <img src="4.png" width="200" height="148" alt="Screenshot"> </td> 
+  						<td> <img src="yellow.png" width="200" height="200" alt="Screenshot"> </td>
+ 				</tr> 
+			</table>
+			</p>
+		<hr>
+		<h2> Discussion </h2>
+			<p> 
+				Methods and Results:
+				<ul>
+					<li> 
+						What are the strengths and weaknesses of your method? 
+					</li>
+					<p>
+						<em> Strengths: </em>
+						Our algorithm and binary image template worked really well, and it shows overall great potential for future applications
+						<br>
+						<em> Weaknesses: </em>
+                    	There was a lot of lag when we performed our testing. The testing room was also not too convenient with poor lighting for the skin detection features. 
+					</p>
+					<li>
+						Do your results show that your method is generally successful or
+     					are there limitations? Describe what you expected to find in your
+     					experiments, and how that differed or was confirmed by your
+     					results. 
+     				</li>
+     				<p>
+     					Yes. Our results show that our methods are indeed generally successful. We expected the amount of numbers we had as our class to line up with their corresponding color assignment that we coded. 
+     				</p>
+					<li>
+						Potential future work. How could your method be improved?   What
+						would you try (if you had more time) to overcome the
+						failures/limitations of your work?
+					</li> 
+					<p>
+						Our methods could be improved with a clearer skin detection approach. There were some trials where there wasn't a correct interpretation of our number count. This could be improved either with a better testing room with better lighting to eliminate shadow confusion, or just an overall better skin detection algorithm 
+     				</p>
+				</ul>
+			</p>
+		<hr>
+		<h2> Conclusions </h2>
+			<p>
+				This algorithm shows a lot of promise for our future. Having this level of video detection can provide great benefits to our society. This could potentially be useful for vehicles detecting pedestrians, teaching children how to count with their fingers, and so much more. 
+			</p>
+		<hr>
+		<h2> Credits and Bibliography </h2>
+			<p>
+				<ul>
+					<li> 
+						TutorialKart, 2018 
+						<cite><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/cite"> OpenCV Resize image using cv2.resize() </a></cite>
+					</li>
+					<li> 
+						GeeksforGeeks, November 28 2019
+						<cite><a href="https://www.geeksforgeeks.org/template-matching-using-opencv-in-python/"> Template matching using OpenCV in Python </a></cite>
+					</li>
+					<li> 
+						Pyimagesearch, Adrian Rosebrock, January 26 2015
+						<cite><a href="https://www.pyimagesearch.com/2015/01/26/multi-scale-template-matching-using-python-opencv/"> Multi-scale Template Matching using Python and OpenCV </a></cite>
+					</li>
+					<li> 
+						Techtutorialsx
+						<cite><a href="https://techtutorialsx.com/2019/04/13/python-opencv-converting-image-to-black-and-white/#comments"> Python OpenCV: Converting an image to black and white </a></cite>
+					</li>
+					<li> 
+						OpenCV-Python Tutorials, Alexander Mordvintsev & Abid K., 2013
+						<cite><a href="https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_template_matching/py_template_matching.html"> Template Matching </a></cite>
+					</li>
+					<li> 
+						B. Iyer, S. Nalbalwar and R. Pawade (Eds.), Atlantis Press, 2017
+						<cite><a href="https://arxiv.org/pdf/1708.02694.pdf"> Human Skin Detection Using RGB, HSV and YCbCr Color Models </a></cite>
+					</li>
+				</ul>
+			</p>
+		<hr>
+	</div>
+</body>
+</html>
